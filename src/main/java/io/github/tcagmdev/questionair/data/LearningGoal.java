@@ -32,7 +32,23 @@ public class LearningGoal {
 	public boolean hasChild(LearningGoal child) {
 		return this.children.contains(child);
 	}
+	public boolean hasDescendant(LearningGoal descendant) {
+		if (this.hasChild(descendant)) return true;
+		for (LearningGoal child : this.children) {
+			if (child.hasDescendant(descendant)) return true;
+		}
+		return false;
+	}
 	public Set<LearningGoal> getChildren() {
 		return Collections.unmodifiableSet(this.children);
+	}
+	public Set<LearningGoal> getDescendants() {
+		Set<LearningGoal> result = new HashSet<>(this.children);
+
+		for (LearningGoal child : this.children) {
+			result.addAll(child.getDescendants());
+		}
+
+		return Collections.unmodifiableSet(result);
 	}
 }
