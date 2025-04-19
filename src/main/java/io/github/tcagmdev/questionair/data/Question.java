@@ -14,6 +14,15 @@ public class Question {
 	private String answer;
 	private QuestionLevel level;
 
+	public Question(String questionText, String answer, int points, Duration length, QuestionType type, QuestionLevel level) {
+		this.text = questionText;
+		this.answer = answer;
+		this.points = points;
+		this.length = length;
+		this.type = type;
+		this.level = level;
+	}
+
 	public void addGoal(LearningGoal goal) {
 		this.goals.add(goal);
 	}

@@ -9,6 +9,11 @@ public class LearningGoal {
 	private String location;
 	private final Set<LearningGoal> children = new HashSet<>();
 
+	public LearningGoal(String description, String location) {
+		this.description = description;
+		this.location = location;
+	}
+
 	public void setDescription(String description) {
 		this.description = description;
 	}
