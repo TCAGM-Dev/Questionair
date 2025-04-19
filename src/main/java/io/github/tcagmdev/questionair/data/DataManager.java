@@ -14,11 +14,11 @@ public class DataManager {
 	private int moduleSequenceKey;
 	private int questionSequenceKey;
 
-	public DataManager(int examSequenceKey, int goalSequenceKey, int moduleSequenceKey, int questionSequenceKey) {
-		this.examSequenceKey = examSequenceKey;
-		this.goalSequenceKey = goalSequenceKey;
-		this.moduleSequenceKey = moduleSequenceKey;
-		this.questionSequenceKey = questionSequenceKey;
+	public DataManager() {
+		this.examSequenceKey = 0;
+		this.goalSequenceKey = 0;
+		this.moduleSequenceKey = 0;
+		this.questionSequenceKey = 0;
 	}
 	public DataManager(DataSeeder seeder) {
 		seeder.seed(this::putExam, this::putGoal, this::putModule, this::putQuestion);
