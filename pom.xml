@@ -57,5 +57,10 @@
             <version>5.11.4</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>io.github.tcagmdev</groupId>
+            <artifactId>statesmith</artifactId>
+            <version>1.0.1</version>
+        </dependency>
     </dependencies>
 </project>
