@@ -1,6 +1,6 @@
 package io.github.tcagmdev.questionair.frontend;
 
-import io.github.tcagmdev.questionair.data.DataManager;
+import io.github.tcagmdev.questionair.App;
 import io.github.tcagmdev.questionair.data.Exam;
 import io.github.tcagmdev.questionair.util.ValueReference;
 import io.github.tcagmdev.statesmith.StateMachine;
@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ViewExamsScreenFactory {
-	public static StateNode<String> createNode(StateMachine<String> stateMachine, StateNode<String> parent, DataManager dataManager) {
+	public static StateNode<String> createNode(StateMachine<String> stateMachine, StateNode<String> parent, App app) {
 		Map<String, Integer> idMap = new HashMap<>();
 		ValueReference<String> backIndex = new ValueReference<>();
 
@@ -19,19 +19,19 @@ public class ViewExamsScreenFactory {
 
 			idMap.clear();
 			int currentIndex = 1;
-			for (Map.Entry<Integer, Exam> entry : dataManager.getExams().entrySet()) {
+			for (Map.Entry<Integer, Exam> entry : app.DATA.getExams().entrySet()) {
 				idMap.put(String.valueOf(currentIndex), entry.getKey());
 				System.out.printf("%d. %s%n", currentIndex, entry.getValue().getModule().getName());
 				currentIndex++;
 			}
 
-			if (dataManager.getExams().isEmpty()) System.out.println("None");
+			if (app.DATA.getExams().isEmpty()) System.out.println("None");
 
 			System.out.printf("%d. Back%n", currentIndex);
 			backIndex.set(String.valueOf(currentIndex));
 		});
 
-		node.addConnection(idMap::containsKey, input -> ExamInfoScreenFactory.getOrCreateNode(stateMachine, node, dataManager.getExam(idMap.get(input))));
+		node.addConnection(idMap::containsKey, input -> ExamInfoScreenFactory.getOrCreateNode(stateMachine, node, app.DATA.getExam(idMap.get(input))));
 		node.addConnection(input -> idMap.isEmpty() || input.equals(backIndex.get()), parent);
 		node.setDefaultTarget(node, _ -> System.out.println("Invalid option. Please try again"));
 

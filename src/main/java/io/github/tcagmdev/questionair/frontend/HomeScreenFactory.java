@@ -13,7 +13,7 @@ public class HomeScreenFactory {
 			2. View exams
 			3. Exit
 		"""));
-		StateNode<String> viewExamsScreen = ViewExamsScreenFactory.createNode(stateMachine, node, app.DATA);
+		StateNode<String> viewExamsScreen = ViewExamsScreenFactory.createNode(stateMachine, node, app);
 
 		node.addConnection(input -> input.equalsIgnoreCase("2"), viewExamsScreen);
 		node.addConnection(input -> input.equals("3"), exitNode);
