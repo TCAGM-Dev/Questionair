@@ -48,6 +48,7 @@ public abstract class ExamInfoScreenFactory {
 			System.out.println("2. Back");
 		});
 
+		node.addConnection(input -> input.equals("1") || input.equalsIgnoreCase("edit"), node, _ -> System.out.println("Editing exams is not implemented yet")); // TODO
 		node.addConnection(input -> input.equals("2") || input.equalsIgnoreCase("back"), parent);
 		node.setDefaultTarget(node, _ -> System.out.println("Invalid option, please try again"));
 
