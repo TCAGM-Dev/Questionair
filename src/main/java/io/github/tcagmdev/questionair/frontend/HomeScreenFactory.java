@@ -11,13 +11,16 @@ public abstract class HomeScreenFactory {
 		Please select one of the following options:
 		1. Make exam
 		2. View exams
-		3. Exit
+		3. View learning goals
+		4. Exit
 		"""));
 		StateNode<String> viewExamsScreen = ViewExamsScreenFactory.createNode(stateMachine, node, app);
+		StateNode<String> viewGoalsScreen = null; // TODO
 
 		node.addConnection(input -> input.equalsIgnoreCase("1"), node, _ -> System.out.println("Making exams is not implemented yet")); // TODO
 		node.addConnection(input -> input.equalsIgnoreCase("2"), viewExamsScreen);
-		node.addConnection(input -> input.equals("3"), exitNode);
+		node.addConnection(input -> input.equals("3"), viewGoalsScreen);
+		node.addConnection(input -> input.equals("4"), exitNode);
 		node.setDefaultTarget(node, _ -> System.out.println("Invalid option, please try again"));
 
 		return node;
