@@ -33,7 +33,7 @@ public abstract class ViewExamsScreenFactory {
 			backIndex.set(String.valueOf(currentIndex));
 		});
 
-		node.addConnection(idMap::containsKey, input -> LearningGoalInfoScreenFactory.getOrCreateNode(stateMachine, node, app.DATA.getGoal(idMap.get(input))));
+		node.addConnection(idMap::containsKey, input -> ExamInfoScreenFactory.getOrCreateNode(stateMachine, node, app.DATA.getExam(idMap.get(input))));
 		node.addConnection(input -> idMap.isEmpty() || input.equals(backIndex.get()) || input.equalsIgnoreCase("back"), parent);
 		node.setDefaultTarget(node, _ -> System.out.println("Invalid option. Please try again"));
 
