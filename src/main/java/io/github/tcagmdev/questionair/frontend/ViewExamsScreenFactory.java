@@ -27,6 +27,8 @@ public abstract class ViewExamsScreenFactory {
 
 			if (app.DATA.getExams().isEmpty()) System.out.println("None");
 
+			System.out.println();
+
 			System.out.printf("%d. Back%n", currentIndex);
 			backIndex.set(String.valueOf(currentIndex));
 		});
