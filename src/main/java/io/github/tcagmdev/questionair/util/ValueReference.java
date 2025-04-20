@@ -14,4 +14,7 @@ public class ValueReference<T> {
 	public T get() {
 		return this.value;
 	}
+	public String toString() {
+		return String.valueOf(this.value);
+	}
 }
