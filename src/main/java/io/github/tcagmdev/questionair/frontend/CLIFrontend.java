@@ -1,11 +1,11 @@
 package io.github.tcagmdev.questionair.frontend;
 
-import io.github.tcagmdev.statesmith.*;
+import io.github.tcagmdev.questionair.App;
+import io.github.tcagmdev.statesmith.StateMachine;
+import io.github.tcagmdev.statesmith.StateNode;
 
 import java.io.InputStream;
 import java.io.PrintStream;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Scanner;
 
 public class CLIFrontend implements Frontend {
@@ -14,22 +14,23 @@ public class CLIFrontend implements Frontend {
 
 	private boolean running = false;
 
-	public CLIFrontend(InputStream inputStream, PrintStream outputStream) {
+	private final App app;
+
+	public CLIFrontend(App app, InputStream inputStream, PrintStream outputStream) {
+		this.app = app;
 		this.in = inputStream;
 		this.out = outputStream;
 	}
 
 	private StateMachine<String> createStateMachine() {
 		StateMachine<String> stateMachine = new StateMachine<>();
-
-		StateNode<String> homeScreen = stateMachine.addNode();
-		StateNode<String> optionsScreen = stateMachine.addNode(_ -> {
-			System.out.println();
-			stateMachine.setCurrentNode(homeScreen);
-		});
 		StateNode<String> exitNode = stateMachine.addNode(_ -> this.running = false);
 
+		StateNode<String> homeScreen = HomeScreenFactory.createNode(stateMachine, this.app, exitNode);
+
 		stateMachine.setCurrentNode(homeScreen);
+
+		stateMachine.setOnChange((prevNode, nextNode, v) -> System.out.print("\n\n"));
 
 		return stateMachine;
 	}
@@ -46,9 +47,5 @@ public class CLIFrontend implements Frontend {
 		while (this.running) {
 			uiStateMachine.consume(scanner.nextLine());
 		}
-	}
-
-	public static void main(String[] args) {
-		new CLIFrontend(System.in, System.out).start();
 	}
 }

@@ -1,5 +1,6 @@
 package io.github.tcagmdev.questionair.data;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,11 +15,11 @@ public class DataManager {
 	private int moduleSequenceKey;
 	private int questionSequenceKey;
 
-	public DataManager(int examSequenceKey, int goalSequenceKey, int moduleSequenceKey, int questionSequenceKey) {
-		this.examSequenceKey = examSequenceKey;
-		this.goalSequenceKey = goalSequenceKey;
-		this.moduleSequenceKey = moduleSequenceKey;
-		this.questionSequenceKey = questionSequenceKey;
+	public DataManager() {
+		this.examSequenceKey = 0;
+		this.goalSequenceKey = 0;
+		this.moduleSequenceKey = 0;
+		this.questionSequenceKey = 0;
 	}
 	public DataManager(DataSeeder seeder) {
 		seeder.seed(this::putExam, this::putGoal, this::putModule, this::putQuestion);
@@ -37,6 +38,9 @@ public class DataManager {
 		if (this.exams.containsKey(id)) throw new IllegalStateException("Attempt to put exam on an id that already exists");
 		this.exams.put(id, exam);
 	}
+	public Map<Integer, Exam> getExams() {
+		return Collections.unmodifiableMap(this.exams);
+	}
 
 	public LearningGoal getGoal(int id) {
 		return this.goals.get(id);
@@ -50,6 +54,9 @@ public class DataManager {
 	private void putGoal(int id, LearningGoal goal) {
 		if (this.goals.containsKey(id)) throw new IllegalStateException("Attempt to put goal on an id that already exists");
 		this.goals.put(id, goal);
+	}
+	public Map<Integer, LearningGoal> getGoals() {
+		return Collections.unmodifiableMap(this.goals);
 	}
 
 	public Module getModule(int id) {
@@ -65,6 +72,9 @@ public class DataManager {
 		if (this.modules.containsKey(id)) throw new IllegalStateException("Attempt to put module on an id that already exists");
 		this.modules.put(id, module);
 	}
+	public Map<Integer, Module> getModules() {
+		return Collections.unmodifiableMap(this.modules);
+	}
 
 	public Question getQuestion(int id) {
 		return this.questions.get(id);
@@ -78,5 +88,8 @@ public class DataManager {
 	private void putQuestion(int id, Question question) {
 		if (this.questions.containsKey(id)) throw new IllegalStateException("Attempt to put question on an id that already exists");
 		this.questions.put(id, question);
+	}
+	public Map<Integer, Question> getQuestions() {
+		return Collections.unmodifiableMap(this.questions);
 	}
 }
