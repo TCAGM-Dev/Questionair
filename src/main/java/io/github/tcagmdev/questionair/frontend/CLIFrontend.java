@@ -9,8 +9,8 @@ import java.io.PrintStream;
 import java.util.Scanner;
 
 public class CLIFrontend implements Frontend {
-	private final InputStream in;
-	private final PrintStream out;
+	public final InputStream in;
+	public final PrintStream out;
 
 	private boolean running = false;
 
@@ -26,11 +26,11 @@ public class CLIFrontend implements Frontend {
 		StateMachine<String> stateMachine = new StateMachine<>();
 		StateNode<String> exitNode = stateMachine.addNode(_ -> this.running = false);
 
-		StateNode<String> homeScreen = HomeScreenFactory.createNode(stateMachine, this.app, exitNode);
+		StateNode<String> homeScreen = HomeScreenFactory.createNode(stateMachine, this, exitNode);
 
 		stateMachine.setCurrentNode(homeScreen);
 
-		stateMachine.setOnChange((prevNode, nextNode, v) -> System.out.print("\n\n"));
+		stateMachine.setOnChange((prevNode, nextNode, v) -> this.out.print("\n\n"));
 
 		return stateMachine;
 	}
@@ -47,5 +47,9 @@ public class CLIFrontend implements Frontend {
 		while (this.running) {
 			uiStateMachine.consume(scanner.nextLine());
 		}
+	}
+
+	public App getApp() {
+		return this.app;
 	}
 }
