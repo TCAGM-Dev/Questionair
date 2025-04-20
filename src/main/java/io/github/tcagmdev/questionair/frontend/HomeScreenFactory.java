@@ -17,6 +17,7 @@ public abstract class HomeScreenFactory {
 
 		node.addConnection(input -> input.equalsIgnoreCase("2"), viewExamsScreen);
 		node.addConnection(input -> input.equals("3"), exitNode);
+		node.setDefaultTarget(node, _ -> System.out.println("Invalid option, please try again"));
 
 		return node;
 	}
