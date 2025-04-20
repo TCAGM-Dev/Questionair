@@ -1,6 +1,5 @@
 package io.github.tcagmdev.questionair.frontend;
 
-import io.github.tcagmdev.questionair.App;
 import io.github.tcagmdev.questionair.data.Exam;
 import io.github.tcagmdev.questionair.util.ValueReference;
 import io.github.tcagmdev.statesmith.StateMachine;
@@ -10,32 +9,32 @@ import java.util.HashMap;
 import java.util.Map;
 
 public abstract class ViewExamsScreenFactory {
-	public static StateNode<String> createNode(StateMachine<String> stateMachine, StateNode<String> parent, App app) {
+	public static StateNode<String> createNode(StateMachine<String> stateMachine, StateNode<String> parent, CLIFrontend frontend) {
 		Map<String, Integer> idMap = new HashMap<>();
 		ValueReference<String> backIndex = new ValueReference<>();
 
 		StateNode<String> node = stateMachine.addNode(_ -> {
-			System.out.println("Exams:");
+			frontend.out.println("Exams:");
 
 			idMap.clear();
 			int currentIndex = 1;
-			for (Map.Entry<Integer, Exam> entry : app.DATA.getExams().entrySet()) {
+			for (Map.Entry<Integer, Exam> entry : frontend.getApp().DATA.getExams().entrySet()) {
 				idMap.put(String.valueOf(currentIndex), entry.getKey());
-				System.out.printf("%d. %s%n", currentIndex, entry.getValue().getModule().getName());
+				frontend.out.printf("%d. %s%n", currentIndex, entry.getValue().getModule().getName());
 				currentIndex++;
 			}
 
-			if (app.DATA.getExams().isEmpty()) System.out.println("None");
+			if (frontend.getApp().DATA.getExams().isEmpty()) frontend.out.println("None");
 
-			System.out.println();
+			frontend.out.println();
 
-			System.out.printf("%d. Back%n", currentIndex);
+			frontend.out.printf("%d. Back%n", currentIndex);
 			backIndex.set(String.valueOf(currentIndex));
 		});
 
-		node.addConnection(idMap::containsKey, input -> ExamInfoScreenFactory.getOrCreateNode(stateMachine, node, app.DATA.getExam(idMap.get(input))));
+		node.addConnection(idMap::containsKey, input -> ExamInfoScreenFactory.getOrCreateNode(stateMachine, node, frontend, frontend.getApp().DATA.getExam(idMap.get(input))));
 		node.addConnection(input -> idMap.isEmpty() || input.equals(backIndex.get()) || input.equalsIgnoreCase("back"), parent);
-		node.setDefaultTarget(node, _ -> System.out.println("Invalid option. Please try again"));
+		node.setDefaultTarget(node, _ -> frontend.out.println("Invalid option. Please try again"));
 
 		return node;
 	}
