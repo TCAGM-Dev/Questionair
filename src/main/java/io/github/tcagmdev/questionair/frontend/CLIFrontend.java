@@ -24,19 +24,9 @@ public class CLIFrontend implements Frontend {
 
 	private StateMachine<String> createStateMachine() {
 		StateMachine<String> stateMachine = new StateMachine<>();
-
-		StateNode<String> homeScreen = stateMachine.addNode(_ -> System.out.println("""
-			Welcome to Questionair!
-			Please select one of the following options:
-			1. Make exam
-			2. View exams
-			3. Exit
-		"""));
-		StateNode<String> viewExamsScreen = ViewExamsScreenFactory.createNode(stateMachine, homeScreen, this.app.DATA);
 		StateNode<String> exitNode = stateMachine.addNode(_ -> this.running = false);
 
-		homeScreen.addConnection(input -> input.equalsIgnoreCase("2"), viewExamsScreen);
-		homeScreen.addConnection(input -> input.equals("3"), exitNode);
+		StateNode<String> homeScreen = HomeScreenFactory.createNode(stateMachine, this.app, exitNode);
 
 		stateMachine.setCurrentNode(homeScreen);
 
