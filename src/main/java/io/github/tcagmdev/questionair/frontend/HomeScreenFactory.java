@@ -17,8 +17,8 @@ public abstract class HomeScreenFactory {
 		StateNode<String> viewExamsScreen = ViewExamsScreenFactory.createNode(stateMachine, node, app);
 		StateNode<String> viewGoalsScreen = null; // TODO
 
-		node.addConnection(input -> input.equalsIgnoreCase("1"), node, _ -> System.out.println("Making exams is not implemented yet")); // TODO
-		node.addConnection(input -> input.equalsIgnoreCase("2"), viewExamsScreen);
+		node.addConnection(input -> input.equals("1"), node, _ -> System.out.println("Making exams is not implemented yet")); // TODO
+		node.addConnection(input -> input.equals("2"), viewExamsScreen);
 		node.addConnection(input -> input.equals("3"), viewGoalsScreen);
 		node.addConnection(input -> input.equals("4"), exitNode);
 		node.setDefaultTarget(node, _ -> System.out.println("Invalid option, please try again"));
