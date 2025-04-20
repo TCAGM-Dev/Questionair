@@ -21,11 +21,16 @@ public abstract class LearningGoalInfoScreenFactory {
 			System.out.printf("Can be found at: %s%n", goal.getLocation());
 
 			System.out.print("Children: ");
-			for (LearningGoal child : goal.getChildren()) System.out.printf("%s, ", child.getDescription());
-			System.out.print("\b\b\n"); // Erase the final ", " and finish the line
+			if (!goal.getChildren().isEmpty()) {
+				for (LearningGoal child : goal.getChildren()) System.out.printf("%s, ", child.getDescription());
+				System.out.print("\b\b\n"); // Erase the final ", " and finish the line
+			} else System.out.println("None");
+
 			System.out.print("Descendants: ");
-			for (LearningGoal descendant : goal.getDescendants()) System.out.printf("%s, ", descendant.getDescription());
-			System.out.print("\b\b\n"); // Erase the final ", " and finish the line
+			if (!goal.getChildren().isEmpty()) { // getChildren because the only way for getDescendants to be empty is for getChildren to also be, and its faster
+				for (LearningGoal descendant : goal.getDescendants()) System.out.printf("%s, ", descendant.getDescription());
+				System.out.print("\b\b\n"); // Erase the final ", " and finish the line
+			} else System.out.println("None");
 
 			System.out.println();
 

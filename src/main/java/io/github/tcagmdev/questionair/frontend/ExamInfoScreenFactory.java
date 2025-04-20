@@ -36,8 +36,10 @@ public abstract class ExamInfoScreenFactory {
 				System.out.printf("\t%s%n", question.getAnswer());
 
 				System.out.print("Learning goals: ");
-				for (LearningGoal goal : question.getGoals()) System.out.printf("%s, ", goal.getDescription());
-				System.out.print("\b\b\n"); // Erase the final ", " and finish the line
+				if (!question.getGoals().isEmpty()) {
+					for (LearningGoal goal : question.getGoals()) System.out.printf("%s, ", goal.getDescription());
+					System.out.print("\b\b\n"); // Erase the final ", " and finish the line
+				} else System.out.println("None");
 
 				System.out.printf("Length: %dm, Points: %d, Type: %s, Level: %s, Shortable: %s%n", question.getLength().toMinutes(), question.getPoints(), question.getType().name(), question.getLevel().name(), questionReference.isShortable() ? "Yes" : "No");
 			}
