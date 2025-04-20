@@ -6,14 +6,14 @@ import io.github.tcagmdev.statesmith.StateNode;
 
 public abstract class HomeScreenFactory {
 	public static StateNode<String> createNode(StateMachine<String> stateMachine, App app, StateNode<String> exitNode) {
-		StateNode<String> node = stateMachine.addNode(_ -> System.out.println("""
-		Welcome to Questionair!
-		Please select one of the following options:
-		1. Make exam
-		2. View exams
-		3. View learning goals
-		4. Exit
-		"""));
+		StateNode<String> node = stateMachine.addNode(_ -> {
+			System.out.println("Welcome to Questionair!");
+			System.out.println("Please select one of the following options:");
+			System.out.println("1. Make exam");
+			System.out.println("2. View exams");
+			System.out.println("3. View learning goals");
+			System.out.println("4. Exit");
+		});
 		StateNode<String> viewExamsScreen = ViewExamsScreenFactory.createNode(stateMachine, node, app);
 		StateNode<String> viewGoalsScreen = null; // TODO
 
