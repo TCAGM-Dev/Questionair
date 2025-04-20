@@ -9,7 +9,7 @@ import io.github.tcagmdev.statesmith.StateNode;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ViewExamsScreenFactory {
+public abstract class ViewExamsScreenFactory {
 	public static StateNode<String> createNode(StateMachine<String> stateMachine, StateNode<String> parent, App app) {
 		Map<String, Integer> idMap = new HashMap<>();
 		ValueReference<String> backIndex = new ValueReference<>();

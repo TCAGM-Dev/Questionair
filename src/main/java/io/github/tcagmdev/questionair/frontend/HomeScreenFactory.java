@@ -4,7 +4,7 @@ import io.github.tcagmdev.questionair.App;
 import io.github.tcagmdev.statesmith.StateMachine;
 import io.github.tcagmdev.statesmith.StateNode;
 
-public class HomeScreenFactory {
+public abstract class HomeScreenFactory {
 	public static StateNode<String> createNode(StateMachine<String> stateMachine, App app, StateNode<String> exitNode) {
 		StateNode<String> node = stateMachine.addNode(_ -> System.out.println("""
 			Welcome to Questionair!
