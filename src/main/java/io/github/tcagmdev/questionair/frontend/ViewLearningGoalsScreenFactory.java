@@ -34,7 +34,7 @@ public abstract class ViewLearningGoalsScreenFactory {
 		});
 
 		node.addConnection(idMap::containsKey, input -> LearningGoalInfoScreenFactory.getOrCreateNode(stateMachine, node, app.DATA.getGoal(idMap.get(input))));
-		node.addConnection(input -> idMap.isEmpty() || input.equals(backIndex.get()), parent);
+		node.addConnection(input -> idMap.isEmpty() || input.equals(backIndex.get()) || input.equalsIgnoreCase("back"), parent);
 		node.setDefaultTarget(node, _ -> System.out.println("Invalid option. Please try again"));
 
 		return node;
