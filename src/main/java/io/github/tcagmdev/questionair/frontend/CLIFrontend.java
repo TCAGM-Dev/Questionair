@@ -1,8 +1,8 @@
 package io.github.tcagmdev.questionair.frontend;
 
 import io.github.tcagmdev.questionair.App;
-import io.github.tcagmdev.questionair.data.DataManager;
-import io.github.tcagmdev.statesmith.*;
+import io.github.tcagmdev.statesmith.StateMachine;
+import io.github.tcagmdev.statesmith.StateNode;
 
 import java.io.InputStream;
 import java.io.PrintStream;
@@ -30,7 +30,7 @@ public class CLIFrontend implements Frontend {
 
 		stateMachine.setCurrentNode(homeScreen);
 
-		stateMachine.setOnChange((prevNode, nextNode, v) -> System.out.println("\n\n"));
+		stateMachine.setOnChange((prevNode, nextNode, v) -> System.out.print("\n\n"));
 
 		return stateMachine;
 	}
